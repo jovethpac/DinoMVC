@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <!--List all of the Dinosaurs that are stored in our data layer-->
+<!--Bootstrap is a built in CSS-->
+</head>
+<body>
+    <h1>All Dinosaurs</h1>
+<!--Let's assume we have acess to a list of all dinosaurs called allDinos from our data layer
+that is being passed in from the controller-->
+    <table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Species</th>
+            <th>Diet</th>
+            <th>AquaticBoolean</th>
+        </tr>
+<!--Create a loop to iterate through each dinosaur, needs two lines, dino is just a singular iterator and they correspond to each other-->
+        <tr th:each="dino : ${allDinos}"}>
+            <td th:text="${dino.id}">1</td>
+            <td th:text="${dino.species}"></td>
+            <td th:text="${dino.diet}"></td>
+            <td th:text="${dino.isAquatic()}"></td>
+        </tr>
+    </table>
+</body>
+</html>

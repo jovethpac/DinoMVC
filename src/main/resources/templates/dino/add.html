@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+    <h1>Add Dinosaur</h1>
+
+<!--currently this will go to dino/add-->
+    <form method="POST" action="" >
+<!--includde the three pieces of information all dinos have: species, diet, aquatic. Create FORM below-->
+        Species:
+        <input type="text" name="species"/>
+<!--        We only want to render this p tag IF AND ONLY IF there is an actual
+error message to display-->
+        <span th:text="${errorMsg}" th:if="${errorMsg!=null}" style="color:red;"></span>
+        <br>
+        Diet:
+        <select name="diet">
+            <option value="Herbivore">Herbivore</option>
+            <option value="Carnivore">Carnivore</option>
+            <option value="Omnivore">Omnivore</option>
+        </select>
+        <br>
+        Is the dino aquatic?
+        <select name="aquatic">
+            <option value="no">No</option>
+            <option value="yes">Yes</option>
+        </select>
+        <br>
+        <button>Add Dino!</button>
+    </form>
+</body>
+</html>
