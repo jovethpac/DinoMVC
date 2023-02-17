@@ -21,10 +21,9 @@ public class DinoController {
 
     //this is a method that handles get requests at the /dino path
     @GetMapping
-    public String dinoIndex(Model model){//any made up name, should match what it wants to display
-        //let's pass in a list of ALL the Dinos in our data layer
+    public String dino(Model model){//dino is any made up name, should match what it wants to display
+        //let's pass in a list of ALL the Dinos in our data layer. point to the DinoData under data and reference the METHOD
         model.addAttribute("allDinos", DinoData.getAllDinos());
-        //point to the DinoData under data and reference the METHOD
         return"dino/index";//needs to have both locations
     }
 
@@ -34,26 +33,26 @@ public class DinoController {
         return "dino/add";
     }
 
-    @PostMapping("add")
+    @PostMapping("add") //this method processes the addDinoForm and displays it back to dino/add
     public String processAddDinoForm(Model model, @ModelAttribute @Valid Dinosaur newDinoObj,
-                                    Errors error){//Errors error needs to go last
+                                    Errors errors){//Errors error needs to go last
         //now that we have the 3 necessary pieces of data we need from the form,
         //let's create a Dinosaur object using this data: Dinosaur newDinoObj = new Dinosaur(species, diet, aquatic);
-        //replace the below line with model binding: @ModelAttribute Dinosaur newDinoObj
-        // the above creates the new dino object right at the paramenter
+        //replace the above line with model binding: @ModelAttribute Dinosaur newDinoObj
+        // the above creates the new dino object right at the parameter
         // Dinosaur newDinoObj = new Dinosaur(species, diet, aquatic);
-
-        //now that we are validating hte post request data via model validation, we need to
-        //check that the data is passing using this Errors object before adding hte dino to the
+//Dinosaur is Type and newDinoObj is nanme
+        //now that we are validating the post request data via model validation, we need to
+        //check that the data is passing using this Errors object before adding the dino to the
         //allDinos list
-        if(error.hasErrors()) {
+        if(errors.hasErrors()) {
 
-            //before we re-render out the dino/add view, let's pass in an error message the view so that the user gets soem feedback
+            //before we re-render out the dino/add view, let's pass in an error message the view so that the user gets some feedback
             //about what went wrong
             model.addAttribute("errorMsg","The species must contain at least 3 characters!");
             return "dino/add";
         }
-        //what should we do with this dinosaur object? add it to the ArrayList in the data layer
+        //what should we do with this dinosaur OBJECT? Add it to the ArrayList in the data layer
         //call the method addDino from Dinodata
         DinoData.addDino(newDinoObj);
 
@@ -62,9 +61,13 @@ public class DinoController {
         //send to dino/index because that's where we'll see the list of dinosaurs we're looking for
         //need to put Model model in the parameter at the very beginning
         //anytime we RENDER dino/index
-        //so that our ThymeLeaf template can render all of dinos in the table
-        model.addAttribute("allDinos", DinoData.getAllDinos());
+        //so that our ThymeLeaf template can render ALL of dinos in the table
+       // model.addAttribute("allDinos", DinoData.getAllDinos()); removed because no longer needed after redirect was added
+        //it would be redundant to have the other model.addAttribute because redirect takes you to dino method that has its own model.addAttribute
 
-        return "dino/index";
+        //return "dino/index";
+        return "redirect:"; //as soon we as finish processing the method above (processAddDinoForm), it will redirect us back to the root path or the index page. it will send a get request over to the dino method which is /dino path
+        // ...this will sends us back to the home page to /dino and adds that new dinosaur object there...sends a get request back to localhost:8080/dino, everytime we send a get request to /dino, we go to the dino method
+        // which displays all of the dinos
     }
 }
