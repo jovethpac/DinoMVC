@@ -3,9 +3,12 @@ package org.launchcode.Ch15Lecture.models;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Dinosaur {
@@ -30,6 +33,10 @@ public class Dinosaur {
 //        id = nextId;//remember that this has a getter
 //        nextId++;
 //}
+
+    //We also need a field in this class to establish the other side of the relationship between Dinosaurs and DinoEggs
+    @OneToMany(mappedBy = "dinosaur")   //one Dinosaur to many eggs  //we just write down the name of the field that it's mapped to...this comes from the DinoEgg class private Dinosaur dinosaur
+    private final List<DinoEgg> dinoEggs = new ArrayList<>(); //dinoEggs is any made up variable but DinoEgg has to match up what's its called in the DinoEgg class
     public Dinosaur() {}//still needs an empty constructor
 
     public Dinosaur(String species, String diet, String aquatic) {
