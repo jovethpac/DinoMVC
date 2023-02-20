@@ -21,6 +21,14 @@ public class DinoEgg {
         this.dateLaid = dateLaid;
     }
 
+    public Dinosaur getDinosaur() {
+        return dinosaur;
+    }
+
+    public void setDinosaur(Dinosaur dinosaur) {
+        this.dinosaur = dinosaur;
+    }
+
     //Alongside the normal fields, we need to include a field that establishes a relationship with the Dinosaur class
     @ManyToOne  //many dinosaur eggs to one Dinosaur
     private Dinosaur dinosaur; //lowercase dinosaur, but I can name it any variable I want

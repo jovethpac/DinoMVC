@@ -7,7 +7,7 @@
 <body>
    <h1>Create new dinosaur egg</h1>
 <!--This form is dedicated to creating a new dinosaur egg-->
-<!--    What info do we need to create a new dino egg. We need inptu for sizeInches, weightKG, dateLaid, which dinosaur laid the egg-->
+<!--    What info do we need to create a new dino egg. We need input for sizeInches, weightKG, dateLaid, which dinosaur laid the egg-->
 <form method="POST">
     Size (inches):
    <input type="number" th:field="${dinoEgg.sizeInches}" />
@@ -18,6 +18,19 @@
     Date laid:
     <input type="date" th:field="${dinoEgg.dateLaid}" />
     <br>
+    Which dino laid this egg?
+    <select th:field="${dinoEgg.dinosaur}">
+<!--        we should loop through the dinosaurs instead of hard coding it-->
+<!--        Let's use a Thymleaf loop to display all of the  Dinosaurs from the database as options in this dropdown-->
+
+<!--        trying to display all of the dinosaurs in the database as an option-->
+<!--        dino is the iterator variable in the loop-->
+        <option th:each="dino: ${allDinos}"
+                th:value="${dino.id}"
+                th:text="${dino.species}"></option>
+            <br>
+
+    </select>
     <button> Create Egg!</button>
 </form>
 </body>
